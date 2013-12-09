@@ -33,10 +33,10 @@ end
         fill_in "Name", with: "Example User"
         fill_in "Email", with: "user@example.com"
         fill_in "Password", with: "foobar"
-        fill_in "Confirmation", with: "foobar"
+        fill_in "Password confirmation", with: "foobar"
       end
         it "should create a user" do
-         expcect {click_button submit}.to change(User, :count).by(1)
+         expect {click_button submit}.to change(User, :count).by(1)
         end
     end
   end

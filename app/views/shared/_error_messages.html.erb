@@ -1,0 +1,16 @@
+<% if @user.errors.any? %>
+  <div id="errors-explanation">
+    <div class="alert alert-error">
+      The form contains <%= pluralize(@user.errors.count, "error") %>.
+    </div>
+    <ul>
+      <% @user.errors.full_messages.each do |msg| %>
+        <!-- should be putting the errors messages in a list form. Right now
+        they are side by side. A minor format annoyance. hard to read -->
+        <li>* <%= msg %></li>
+      <% end %>
+    </ul>
+    
+  </div>
+<% end %>
+
