@@ -42,6 +42,7 @@ describe "Authentication" do
       it {should have_link("Sign out", href: signout_path)}
       it {should_not have_link("Sign in", href: signin_path)}
 
+
     end
 
 
