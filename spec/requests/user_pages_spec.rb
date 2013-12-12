@@ -54,6 +54,10 @@ end
 
     describe "with valid information" do
       let(:new_name) {"New Name"}
+      before do
+       sign_in user
+       visit edit_user_path(user)
+      end
       let(:new_email) {"newexample@example.com"}
       before do
         fill_in "Name", with: new_name
