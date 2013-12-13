@@ -1,11 +1,8 @@
 <% provide(:title, "All users") %>
 <h1>All users</h1>
 
-<table class="table">
-  <% @users.each do |user| %>
-     <tr>
-        <td><%= gravatar_for(user, size: 52) %></td>
-        <td><%= link_to user.name, user %></td>
-     </tr>
-  <% end %>
-</table>
+<%= will_paginate %>
+
+ <%= render @users %>
+
+<%= will_paginate %>
