@@ -13,9 +13,9 @@ describe "User Pages" do
 
     it {should have_selector('title', text: "All users")}
     it {should have_selector('h1', text: "All users")}
-    it "should list each user" do
+    it "should put each user in a table to show  each user" do
       User.all.each do |user|
-        page.should have_selector('li', text: user.name)
+        page.should have_selector('td', text: user.name)
       end
     end
   end
