@@ -102,4 +102,15 @@ describe User do
     it { should_not be_valid}
   end
 
+  it {should respond_to(:admin) }
+  it {should respond_to(:authenticate) }
+
+  it {should be_valid }
+  it {should_not be_admin }
+
+  describe "with admin attribute set to true" do
+    before { @user.toggle!(:admin) }
+
+    it {should be_admin }
+  end
 end
