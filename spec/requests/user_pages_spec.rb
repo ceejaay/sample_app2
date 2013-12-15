@@ -80,7 +80,7 @@ describe "User Pages" do
    describe "microposts " do
      it {should have_content(m1.content) }
      it {should have_content(m2.content) }
-     it {should have_content(users.microposts.count) }
+     it {should have_content(user.microposts.count) }
    end
   end
 
