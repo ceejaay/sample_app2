@@ -137,7 +137,7 @@ describe "Authentication" do
      
      describe "in the relationships controller" do
        describe "submitting to the create action" do
-         before { post relationship_path }
+         before { post relationships_path }
          specify { response.should redirect_to(signin_path) }
        end
 

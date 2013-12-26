@@ -82,6 +82,7 @@ describe "User Pages" do
   end
 
     describe "follow/unfollow buttons" do
+      let(:user) {FactoryGirl.create(:user) }
       let(:other_user) {FactoryGirl.create(:user) }
       before {sign_in user}
 
@@ -97,7 +98,7 @@ describe "User Pages" do
          it "should increment the other user's followers count" do
            expect do
              click_button "Follow"
-           end.to chaange(other_user.followers, :count).by(1)
+           end.to change(other_user.followers, :count).by(1)
          end
 
        describe "toggling the button" do
