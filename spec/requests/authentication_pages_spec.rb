@@ -134,7 +134,20 @@ describe "Authentication" do
 
        it { should have_selector('title', text: 'Sign in')}
      end
+     
+     describe "in the relationships controller" do
+       describe "submitting to the create action" do
+         before { post relationship_path }
+         specify { response.should redirect_to(signin_path) }
+       end
+
+       describe "submitting to the destroy action" do
+         before {delete relationship_path(1) }
+         specify {response.should redirect_to(signin_path) }
+       end
+     end
    end
+
    #new code for authorization here.
      describe "as wrong user" do
        #wrong user code here

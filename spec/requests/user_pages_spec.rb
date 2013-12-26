@@ -80,6 +80,7 @@ describe "User Pages" do
       it {should have_content(user.microposts.count) }
     end
   end
+
     describe "follow/unfollow buttons" do
       let(:other_user) {FactoryGirl.create(:user) }
       before {sign_in user}
