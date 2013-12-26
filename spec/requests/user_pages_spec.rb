@@ -24,8 +24,8 @@ describe "User Pages" do
     it "should list each user" do
       User.paginate(page: 1).each do |user|
         page.should have_selector('td', text: user.name)
-      end
     end
+  end
 
   describe "delete links" do
     it {should_not have_link("delete") }
@@ -42,11 +42,8 @@ describe "User Pages" do
         expect {click_link('delete') }.to change(User, :count).by(-1)
       end
       it {should_not have_link('delete', href: user_path(admin)) }
-
-
+      end
     end
-
-  end
   end
   
    
@@ -82,21 +79,53 @@ describe "User Pages" do
       it {should have_content(m2.content) }
       it {should have_content(user.microposts.count) }
     end
-
+  end
     describe "follow/unfollow buttons" do
       let(:other_user) {FactoryGirl.create(:user) }
       before {sign_in user}
 
       describe "following a user" do
          before {visit user_path(other_user) }
+
          it "should increment the followed user count" do
            expect do
              click_button "Follow"
            end.to change(user.followed_users, :count).by(1)
          end
+
+         it "should increment the other user's followers count" do
+           expect do
+             click_button "Follow"
+           end.to chaange(other_user.followers, :count).by(1)
+         end
+
        describe "toggling the button" do
-         #add code from page 521 here.
+         before {click_button "Follow"} 
+         it {should have_selector('input', value: 'Unfollow') }
        end
+      end
+      
+      describe "unfollowing a user" do
+        before do
+          user.follow!(other_user)
+          visit user_path(other_user)
+        end
+
+        it "Should decrement the followed user count" do
+          expect do
+            click_button "Unfollow"
+          end.to change(user.followed_users, :count).by(-1)
+        end
+
+        it "Should decrement the other users followers count" do
+          expect do
+            click_button "Unfollow"
+          end.to change(other_user.followers, :count).by(-1)
+      end
+
+      describe "toggling the button" do
+        before {click_button "Unfollow" }
+        it { should have_selector('input', value: "Follow")}
       end
     end
   end
