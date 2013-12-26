@@ -68,20 +68,37 @@ describe "User Pages" do
 
 
   describe "profile page" do
-   let(:user) {FactoryGirl.create(:user)}
-   let!(:m1) {FactoryGirl.create(:micropost, user: user, content: "Foo") }
-   let!(:m2) {FactoryGirl.create(:micropost, user: user, content: "Bar") }
+    let(:user) {FactoryGirl.create(:user)}
+    let!(:m1) {FactoryGirl.create(:micropost, user: user, content: "Foo") }
+    let!(:m2) {FactoryGirl.create(:micropost, user: user, content: "Bar") }
 
-   before {visit user_path(user)}
+    before {visit user_path(user)}
 
-   it { should have_selector('h1', text: user.name)} 
-   it { should have_selector('title', text: user.name)} 
+    it { should have_selector('h1', text: user.name)} 
+    it { should have_selector('title', text: user.name)} 
 
-   describe "microposts " do
-     it {should have_content(m1.content) }
-     it {should have_content(m2.content) }
-     it {should have_content(user.microposts.count) }
-   end
+    describe "microposts " do
+      it {should have_content(m1.content) }
+      it {should have_content(m2.content) }
+      it {should have_content(user.microposts.count) }
+    end
+
+    describe "follow/unfollow buttons" do
+      let(:other_user) {FactoryGirl.create(:user) }
+      before {sign_in user}
+
+      describe "following a user" do
+         before {visit user_path(other_user) }
+         it "should increment the followed user count" do
+           expect do
+             click_button "Follow"
+           end.to change(user.followed_users, :count).by(1)
+         end
+       describe "toggling the button" do
+         #add code from page 521 here.
+       end
+      end
+    end
   end
 
   describe "signup page" do
@@ -144,6 +161,8 @@ describe "User Pages" do
       specify { user.reload.email.should == new_email}
     end
   end
+
+
   describe "following/followers" do
     let(:user) {FactoryGirl.create(:user) }
     let(:other_user) {FactoryGirl.create(:user) }

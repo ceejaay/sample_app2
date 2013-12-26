@@ -28,7 +28,7 @@ describe "Static Pages" do
     describe "follower/following counts" do
       let(:other_user) {FactoryGirl.create(:user) }
       before do
-        other_user.follow(user)
+        other_user.follow!(user)
         visit root_path
       end
       it {should have_link("0 following", href: following_user_path(user)) }
