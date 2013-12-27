@@ -165,8 +165,5 @@ describe "Authentication" do
          specify {response.should redirect_to(root_path) }
        end
      end
-    
-    
   end
-#put new code here
 end #this is the end of the main block. describe "Authentication do"
